@@ -1,0 +1,28 @@
+% 商业提案 / 项目报告 / 咨询报告
+\usepackage{xeCJK}
+\setCJKmainfont{{{FONT}}}
+\setCJKsansfont{{{FONT}}}
+\setCJKmonofont{{{MONO_FONT}}}
+\setmainfont{Arial}
+\setmonofont{Menlo}[Scale=0.85]
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.8em}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{\small\textit{Confidential}}
+
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{}{0em}{}
+
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt

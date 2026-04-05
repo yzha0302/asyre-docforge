@@ -1,0 +1,6 @@
+*.pdf
+*.aux
+*.log
+*.out
+*.tex.tmp
+.DS_Store

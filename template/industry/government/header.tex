@@ -1,0 +1,27 @@
+% 政策文件 / 政府公文 / 招标文件
+\usepackage{xeCJK}
+\setCJKmainfont{{{FONT}}}
+\setCJKsansfont{{{FONT}}}
+\setCJKmonofont{{{MONO_FONT}}}
+\setmainfont{Arial}
+\setmonofont{Menlo}[Scale=0.85]
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.6em}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot[C]{\thepage}
+
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize}{\thesubsubsection.}{0.5em}{}
+
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
