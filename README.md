@@ -2,212 +2,149 @@
 
 # Asyre DocForge
 
-> *"Write in Markdown. Ship in any format."*
+> *AI agents think in Markdown. The world runs on PDF and Word.*
 
 ![License](https://img.shields.io/badge/License-MIT-blue)
 ![Shell](https://img.shields.io/badge/Shell-Bash-green)
 ![Presets](https://img.shields.io/badge/Presets-21-brightgreen)
-![CJK](https://img.shields.io/badge/CJK-First%20Class-orange)
-
-<br>
-
-**Still hand-formatting Word documents for every client?**
-
-**Wasting hours tweaking LaTeX margins for each paper format?**
-
-**Can't get Chinese to render in your PDFs?**
-
-<br>
-
-### One command. 21 presets. PDF & Word. CJK out of the box.
-
-<br>
-
-[**Quick Start**](#quick-start) · [**Presets**](#presets) · [**Usage**](#usage) · [**Install**](#install)
+![CJK](https://img.shields.io/badge/CJK-Native-orange)
 
 </div>
 
-<br>
+## Why
 
----
+Every AI agent — Claude, GPT, Copilot — outputs Markdown. But the real world expects APA papers, business proposals, legal contracts, medical reports.
 
-## What It Does
+The usual path: agent writes Markdown → human opens Word → spends 30 minutes formatting → exports PDF. Every time.
 
-Asyre DocForge converts Markdown files to beautifully formatted **PDF** and **Word** documents with a single command. It ships with **21 built-in presets** covering academic papers, business documents, legal contracts, and more — all with first-class Chinese/CJK support.
+DocForge eliminates the middle step. One flag, one command — Markdown becomes a properly formatted document in the exact style your industry requires.
+
+```bash
+docforge -p apa paper.md          # APA paper, done
+docforge -p contract terms.md     # Legal contract, done
+docforge -p proposal plan.md      # Business proposal, done
+```
+
+No token-heavy prompts asking the AI to "format this as APA with 12pt Times New Roman, double spacing, 1-inch margins..." — the template already knows.
+
+## How It Works
 
 ```
-Markdown → Pandoc → LaTeX/XeLaTeX → PDF
-Markdown → Pandoc → reference.docx → Word
+Agent output (.md) → docforge -p <preset> → PDF or Word
 ```
+
+21 presets baked in. Each one encodes the exact font, spacing, margins, headers, and footers for its format. The agent writes content, DocForge handles presentation.
+
+<div align="center">
+
+### One Markdown, many outputs
+
+<img src="assets/apa.png" width="30%" /> <img src="assets/proposal.png" width="30%" /> <img src="assets/eisvogel.png" width="30%" />
+
+*APA paper · Business proposal · Eisvogel cover page*
+
+</div>
 
 ## Presets
 
-| Category | Presets | Details |
-|----------|---------|---------|
-| **Fonts** | `kaiti` `songti` `heiti` `pingfang` `hiragino` | 5 Chinese font presets |
-| **General** | `essay` `report` `book` `slides` `compact` `code` | 6 scenario presets |
-| **Academic** | `apa` `harvard` `mla` `chicago` `ieee` `vancouver` | 6 paper formats |
-| **Business** | `proposal` `meeting` `memo` | Reports, minutes, memos |
-| **Tech** | `tech-doc` `release-notes` | API docs, changelogs |
-| **Legal** | `contract` `legal-brief` | Contracts, NDAs, briefs |
-| **Finance** | `finance` `invoice` | Financial reports, invoices |
-| **Medical** | `medical` | Clinical reports |
-| **Government** | `government` | Policy docs, tenders |
-| **Marketing** | `brand` `marketing` | Brand guides, plans |
-| **Education** | `syllabus` `lesson-plan` | Syllabi, lesson plans |
+```bash
+docforge --list-presets
+```
+
+| Category | Presets |
+|----------|---------|
+| **Academic** | `apa` `harvard` `mla` `chicago` `ieee` `vancouver` |
+| **Business** | `proposal` `meeting` `memo` |
+| **Tech** | `tech-doc` `release-notes` |
+| **Legal** | `contract` `legal-brief` |
+| **Finance** | `finance` `invoice` |
+| **Medical** | `medical` |
+| **Government** | `government` |
+| **Marketing** | `brand` `marketing` |
+| **Education** | `syllabus` `lesson-plan` |
+| **Fonts** | `kaiti` `songti` `heiti` `pingfang` `hiragino` |
+| **General** | `essay` `report` `book` `slides` `compact` `code` |
+
+Every academic preset supports both PDF and Word output.
 
 ## Quick Start
-
-```bash
-# Default PDF (PingFang SC, 11pt)
-docforge README.md
-
-# APA format paper
-docforge -p apa paper.md
-
-# Business proposal as Word
-docforge -p proposal --word report.md
-
-# Contract PDF with Eisvogel cover page
-docforge -p contract --eisvogel --title "Service Agreement" --titlepage contract.md
-```
-
-## Usage
-
-```bash
-docforge [options] <input.md> [output.pdf|docx]
-```
-
-### Output Format
-
-| Flag | Description |
-|------|-------------|
-| *(default)* | PDF output |
-| `-w, --word` | Word (.docx) output |
-| `file.docx` | Auto-detect from extension |
-
-### Presets & Fonts
-
-| Flag | Description |
-|------|-------------|
-| `-p, --preset <name>` | Use a preset (see `--list-presets`) |
-| `--list-presets` | Show all 21 presets |
-| `--list-fonts` | List available CJK fonts on your system |
-
-### Formatting
-
-| Flag | Default | Description |
-|------|---------|-------------|
-| `-f, --font` | PingFang SC | Body font |
-| `-m, --mono` | Heiti SC | Code font |
-| `-s, --fontsize` | 11pt | Font size |
-| `--margin` | 2.5cm | Page margins |
-| `--theme` | tango | Code highlight theme |
-| `-t, --toc` | — | Generate table of contents |
-| `--numbersections` | — | Number sections |
-
-### Eisvogel Mode
-
-Professional layouts with cover pages, headers/footers.
-
-| Flag | Description |
-|------|-------------|
-| `--eisvogel` | Enable Eisvogel template |
-| `--title` | Document title |
-| `--author` | Author name |
-| `--date` | Date (default: today) |
-| `--titlepage` | Generate cover page |
-| `--titlepage-color` | Cover background (hex) |
-| `--logo` | Cover logo image path |
-
-### Code Highlight Themes
-
-`tango` · `pygments` · `kate` · `monochrome` · `espresso` · `zenburn` · `haddock` · `breezedark`
-
-## Examples
-
-```bash
-# Chinese calligraphy font
-docforge -p kaiti document.md
-
-# IEEE paper with TOC
-docforge -p ieee --toc --numbersections paper.md
-
-# MLA paper as Word
-docforge -p mla paper.md paper.docx
-
-# Eisvogel with blue cover
-docforge -p report --eisvogel \
-  --title "Q4 Report" \
-  --author "Team" \
-  --titlepage \
-  --titlepage-color "06386e" \
-  report.md
-
-# Custom: Songti 12pt, wide margins
-docforge -f "Songti SC" -s 12pt --margin 3cm document.md
-```
-
-## Install
-
-### Dependencies
-
-**macOS:**
-
-```bash
-brew install pandoc
-brew install --cask mactex   # or use TinyTeX for lighter install
-```
-
-**Ubuntu/Debian:**
-
-```bash
-sudo apt install pandoc texlive-xetex texlive-lang-chinese
-```
-
-### Install DocForge
 
 ```bash
 git clone https://github.com/yzha0302/asyre-docforge.git
 cd asyre-docforge
 chmod +x docforge.sh install.sh
-./install.sh
+./install.sh    # symlinks to /usr/local/bin/docforge
 ```
 
-### Eisvogel Template (Optional)
+### Dependencies
 
 ```bash
-curl -fsSL -o /tmp/eisvogel.tar.gz \
-  https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.4.0/Eisvogel.tar.gz
-tar xzf /tmp/eisvogel.tar.gz -C /tmp
-mkdir -p ~/.local/share/pandoc/templates
-cp /tmp/Eisvogel-3.4.0/eisvogel.latex ~/.local/share/pandoc/templates/
+# macOS
+brew install pandoc && brew install --cask mactex
+
+# Ubuntu
+sudo apt install pandoc texlive-xetex texlive-lang-chinese
 ```
 
-## How It Works
+## Usage
 
-```
-         ┌─────────────┐
-         │  Markdown    │
-         └──────┬───────┘
-                │
-         ┌──────▼───────┐
-         │   Pandoc      │
-         └──┬────────┬───┘
-            │        │
-     ┌──────▼──┐  ┌──▼──────┐
-     │ XeLaTeX │  │ ref.docx│
-     │ + CJK   │  │ styles  │
-     └────┬────┘  └────┬────┘
-          │            │
-     ┌────▼────┐  ┌────▼────┐
-     │  PDF    │  │  Word   │
-     └─────────┘  └─────────┘
+```bash
+# PDF (default)
+docforge -p apa paper.md
+
+# Word
+docforge -p apa --word paper.md
+# or
+docforge -p apa paper.md paper.docx
+
+# With Eisvogel cover page
+docforge -p report --eisvogel --title "Q4 Report" --titlepage report.md
+
+# Custom font + size
+docforge -f "Songti SC" -s 12pt --toc document.md
+
+# See all presets
+docforge --list-presets
+
+# See available CJK fonts
+docforge --list-fonts
 ```
 
-Each preset includes:
-- **LaTeX header** (`header.tex`) — font, spacing, margins, headers/footers for PDF
-- **Reference doc** (`reference.docx`) — styled Word template (academic presets)
+### Flags
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-p, --preset` | Preset name | pingfang |
+| `-w, --word` | Word output | PDF |
+| `-f, --font` | Body font | PingFang SC |
+| `-m, --mono` | Code font | Heiti SC |
+| `-s, --fontsize` | Size | 11pt |
+| `--margin` | Margins | 2.5cm |
+| `--theme` | Code highlight | tango |
+| `-t, --toc` | Table of contents | — |
+| `--numbersections` | Section numbers | — |
+| `--eisvogel` | Eisvogel template | — |
+| `--title` | Title (Eisvogel) | — |
+| `--author` | Author (Eisvogel) | — |
+| `--titlepage` | Cover page (Eisvogel) | — |
+
+## For Agent Builders
+
+If you're building agents that produce documents, DocForge is a single shell call at the end of your pipeline:
+
+```python
+import subprocess
+
+# Agent generates markdown
+markdown = agent.run("Write a project proposal for ...")
+with open("/tmp/output.md", "w") as f:
+    f.write(markdown)
+
+# DocForge formats it
+subprocess.run(["docforge", "-p", "proposal", "/tmp/output.md", "/tmp/output.pdf"])
+```
+
+The agent doesn't need to know anything about formatting. No extra tokens spent on "use 12pt Arial, 1.5 line spacing, add a confidentiality footer." The preset handles it.
 
 ## License
 
@@ -217,10 +154,8 @@ MIT
 
 <div align="center">
 
-**Stop formatting. Start writing.**
+**Let agents write. Let DocForge format.**
 
 ![Asyre DocForge](https://img.shields.io/badge/Asyre-DocForge-black?style=for-the-badge)
-
-Powered by [**Asyre**](https://github.com/yzha0302)
 
 </div>
